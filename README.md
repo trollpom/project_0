@@ -1,130 +1,30 @@
-# TIC TAC THREE — Современные крестики-нолики
+# TIC TAC THREE — браузерная игра
 
-Красивая, современная игра крестики-нолики 3×3 с выбором дизайна, звуками, живой анимацией фона и режимами.
+Вариант крестиков-ноликов с ботом, игрой на одном устройстве и P2P-модулем PeerJS. Дополнительное правило ограничивает каждого игрока тремя фигурами: следующая заменяет старейшую.
 
-## ✨ Особенности
+**Статус:** личный проект. Стек: JavaScript, CSS, Canvas, Web Audio, Vite; есть конфигурация Electron. Разработка с помощью ИИ и AI coding tools. Сборка установщиков и доступность онлайн-сигналинга проверяются отдельно.
 
-**Поле:** классическое 3×3 с анимациями `popIn`, подсветкой выигрышной линии, конфетти.
+## Запуск
 
-**3 Дизайна:**
-- **Nebula** — темный, неоновый, стеклянный морфизм, космические градиенты
-- **Frost** — светлый минимализм, frosted glass
-- **Clay** — пастельный клейморфизм, мягкий 3D
-
-**3 Набора фигур:**
-- **Classic** ×○, **Cosmic** ✦☾, **Neo Pop** ⚡◍
-
-**3 Режима игры:**
-- 🤖 С ботом (3 сложности: Easy, Medium, Impossible - minimax)
-- 👥 Друг vs Друг на одном устройстве
-- 🌐 Онлайн P2P через PeerJS (код комнаты 6 символов)
-
-**Правило «Три фигуры»:**
-- У каждого макс 3 метки, 4-й ход стирает старейшую. Ничьих нет.
-
-**🔊 Звуки:** процедурный Web Audio движок (X/O/hover/click/win/draw/remove)
-
-**🌌 Фон:** canvas с частицами + связи + параллакс + зерно (SVG turbulence)
-
----
-
-## 🚀 Как запустить в WEB
-
-### 1. Локально (dev)
 ```bash
-git clone https://github.com/trollpom/-.git
-cd -
-npm install
+git clone https://github.com/trollpom/project_0.git
+cd project_0
+npm ci
 npm run dev
-# открой http://localhost:5173
 ```
 
-### 2. Продакшн сборка (статичный сайт)
-```bash
-npm run build
-# файлы появятся в /dist
-npm run preview
-# превью на http://localhost:4173
-```
-Папку `dist` можно залить куда угодно:
-- **Vercel / Netlify / GitHub Pages**: просто залей `dist`
-- **Любой хостинг**: скопируй содержимое `dist` на сервер
-- **Локально открыть**: `npx serve dist`
+Нужен Node.js 22+. Vite: http://localhost:5173 . Сборка: `npm run build`; просмотр: `npm run preview`. Для настольной оболочки после сборки используется `npm run electron`. Скрипт `electron:dev` содержит синтаксис переменной среды Unix; на Windows используйте отдельные команды Vite и Electron.
 
-### 3. Онлайн без сборки (просто открыть)
-Так как игра — это 1 HTML + CSS + JS, можно просто открыть `index.html` через Live Server в VSCode. PeerJS для онлайна требует HTTPS, но локально тоже работает.
+## Что показать
 
----
+Партию с ботом, смену темы и набора фигур, правило трёх меток, звук и управление клавишами R/N/M. Режим P2P требует отдельной проверки соединения двух устройств; наличие интерфейса не гарантирует доступность внешнего сервиса.
 
-## 💻 Как собрать EXE (десктоп)
+## Устройство
 
-Проект уже подготовлен под Electron.
+`main.js` — игра, бот и сетевой режим; `audio.js` — звуки; `bg.js` — фон; `timer.js` — таймер; `style.css` — оформление. Темы: Nebula, Frost и Clay. Сложности бота: Easy, Medium и Impossible; в коде есть алгоритм minimax.
 
-### Что установлено:
-- `electron` — оболочка браузера
-- `electron-builder` — сборщик в .exe / .AppImage
-- `electron-main.cjs` — главный процесс
+## Публикация и ограничения
 
-### Быстрый старт в окне приложения:
-```bash
-npm install
-npm run electron:dev
-# откроется Vite dev сервер + окно Electron с игрой
-```
-Или если уже собран `dist`:
-```bash
-npm run build
-npm run electron
-```
+Vite создаёт `dist`. Workflow GitHub Pages находится в `.github/workflows/deploy.yml`; дополнительно требуется включить Pages в настройках репозитория. Наличие workflow не означает, что публичный сайт уже доступен. Готовые EXE/AppImage и результаты проверки настольных сборок не заявляются.
 
-### Собрать инсталлятор .exe (Windows)
-На Windows машине:
-```bash
-npm install
-npm run build:exe
-# результат: dist/ -> TIC TAC THREE Setup 1.0.0.exe  и TIC TAC THREE 1.0.0.exe (portable)
-```
-
-На Linux/Mac для Windows (нужен wine):
-```bash
-sudo apt install wine
-npm run build:exe
-```
-
-### Собрать для всех платформ:
-```bash
-npm run build:exe:all
-# создает:
-# - win: .exe installer + portable
-# - linux: .AppImage
-```
-
-Файлы появляются в папке `release/` или `dist/` (смотрит electron-builder).
-
-### Структура для exe:
-```
-dist/
-  index.html
-  style.css
-  main.js / audio.js / bg.js
-  icon.png
-electron-main.cjs
-```
-
-### Портативный вариант без установки:
-Просто возьми `TIC TAC THREE 1.0.0.exe` (portable) — один файл, запускается где угодно, ничего не устанавливает.
-
----
-
-## 🛠 Стек
-- Vanilla JS, CSS vars для тем, Vite
-- PeerJS 1.5.4
-- Electron 30 + electron-builder 24
-- Google Fonts: Syne, Space Grotesk, JetBrains Mono
-
-## 🎮 Управление
-- R — сброс раунда, N — следующий, M — mute
-- Клик по дизайну/фигурам меняет на лету
-- В режиме «Три фигуры» видишь, какая метка исчезнет
-
-Хочешь деплой в 1 клик? Могу добавить `vercel.json` и GitHub Actions для автосборки exe.
+[Другие проекты автора](https://github.com/trollpom/My-CRM/blob/main/docs/portfolio.md).
