@@ -27,4 +27,4 @@ npm run dev
 
 Vite создаёт `dist`. Workflow GitHub Pages находится в `.github/workflows/deploy.yml`; дополнительно требуется включить Pages в настройках репозитория. Наличие workflow не означает, что публичный сайт уже доступен. Готовые EXE/AppImage и результаты проверки настольных сборок не заявляются.
 
-[Другие проекты автора](https://github.com/trollpom/My-CRM/blob/main/docs/portfolio.md).
+[Другие проекты автора](https://github.com/trollpom) · [Публичная CRM](https://github.com/trollpom/my_crm).
